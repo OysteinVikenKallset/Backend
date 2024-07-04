@@ -51,6 +51,9 @@ namespace Users.Controllers
                 return BadRequest();
             }
 
+            user.CalculatePhoneDigitSum();
+            user.CalculateIsLeapYearBirthday();
+
             _context.Entry(user).State = EntityState.Modified;
 
             try
@@ -77,6 +80,10 @@ namespace Users.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
+
+            user.CalculatePhoneDigitSum();
+            user.CalculateIsLeapYearBirthday();
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
